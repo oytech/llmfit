@@ -302,8 +302,14 @@ fn handle_provider_popup_mode(app: &mut App, key: KeyEvent) {
     match key.code {
         KeyCode::Esc | KeyCode::Char('P') | KeyCode::Char('q') => app.close_provider_popup(),
 
-        KeyCode::Up | KeyCode::Char('k') => app.provider_popup_up(),
-        KeyCode::Down | KeyCode::Char('j') => app.provider_popup_down(),
+        KeyCode::Char('K') | KeyCode::Up if key.modifiers.contains(KeyModifiers::SHIFT) => {
+            app.provider_popup_up(25)
+        }
+        KeyCode::Char('J') | KeyCode::Down if key.modifiers.contains(KeyModifiers::SHIFT) => {
+            app.provider_popup_down(25)
+        }
+        KeyCode::Up | KeyCode::Char('k') => app.provider_popup_up(1),
+        KeyCode::Down | KeyCode::Char('j') => app.provider_popup_down(1),
 
         KeyCode::Char(' ') | KeyCode::Enter => app.provider_popup_toggle(),
 
